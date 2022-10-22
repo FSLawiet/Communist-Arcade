@@ -3,15 +3,20 @@ module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
     colors: {
+      transparent: "transparent",
       black: "#000000",
       white: "#FFFFFF",
-      "gray-900": "#141212",
-      "gray-800": "#242020",
-      "gray-400": "#8A7C7C",
-      "gray-200": "#CCC4C4",
-      "gray-100": "#E6E1E1",
-      "red-500": "#F78181",
-      "red-300": "#FAAFAF",
+      gray: {
+        900: "#141212",
+        800: "#242020",
+        400: "#8A7C7C",
+        200: "#CCC4C4",
+        100: "#E6E1E1",
+      },
+      red: {
+        500: "#F78181",
+        300: "#FAAFAF",
+      },
     },
     extend: {
       fontFamily: {
