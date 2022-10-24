@@ -12,7 +12,9 @@ module.exports = {
   },
   features: {
     storyStoreV7: true,
+    interacionsDebugger: true,
   },
+  staticDirs: ["../public"],
   viteFinal: (config, { configType }) => {
     if (configType === "PRODUCTION") config.base = "/Communist-Arcade/";
     return config;

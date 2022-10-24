@@ -6,11 +6,13 @@ import { TextInput } from "../components/TextInput";
 import { Envelope, Lock } from "phosphor-react";
 import { Button } from "../components/Button";
 import React, { useState } from "react";
+import axios from "axios";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const handleLoginEmail = (e: React.FormEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
@@ -21,10 +23,13 @@ export const Login = () => {
   const handleLoginRemember = (e: React.FormEvent<HTMLButtonElement>) => {
     setRemember(!remember);
   };
-  const handleLoginSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const LoginInfo = { email, password, remember };
-    alert(LoginInfo);
+    if (LoginInfo.email !== "" && LoginInfo.password !== "") {
+      await axios.post("/sessions", LoginInfo);
+      setIsUserLoggedIn(true);
+    }
   };
 
   return (
@@ -42,6 +47,7 @@ export const Login = () => {
         onSubmit={handleLoginSumbit}
         className="flex flex-col gap-4 items-stretch mt-10 w-full max-w-[400px]"
       >
+        {isUserLoggedIn && <Text>Log In Realizado com Sucesso!</Text>}
         <label htmlFor="email" className="flex flex-col gap-3">
           <Text className="font-semibold">Endereço de e-mail:</Text>
           <TextInput.Root>
