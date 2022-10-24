@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { rest } from "msw";
-import { Login } from "./Login";
+import { Login, LoginProps } from "./Login";
 
 export default {
   title: "Pages/Log In",
@@ -12,14 +12,14 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        rest.post("/sessions", (req, res, ctx) => {
+        rest.post("/login", (req, res, ctx) => {
           return res(ctx.json({ message: "Login realizado!" }));
         }),
       ],
     },
   },
-} as Meta;
-export const Default: StoryObj = {
+} as Meta<LoginProps>;
+export const MockUp: StoryObj<LoginProps> = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 

@@ -8,7 +8,11 @@ import { Button } from "../components/Button";
 import React, { useState } from "react";
 import axios from "axios";
 
-export const Login = () => {
+export interface LoginProps {
+  url?: string;
+}
+
+export const Login = ({ url = "" }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
@@ -27,8 +31,11 @@ export const Login = () => {
     e.preventDefault();
     const LoginInfo = { email, password, remember };
     if (LoginInfo.email !== "" && LoginInfo.password !== "") {
-      await axios.post("/sessions", LoginInfo);
-      setIsUserLoggedIn(true);
+      if (process.env.NODE_ENV === "development") {
+        const resp = await axios.post(`${url}/login`, LoginInfo);
+        console.log(resp.data.message);
+        setIsUserLoggedIn(true);
+      }
     }
   };
 
